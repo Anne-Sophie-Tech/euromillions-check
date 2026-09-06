@@ -17,9 +17,10 @@ HEAD={'User-Agent':'Mozilla/5.0'}
 html=urlopen(Request(PAGE,headers=HEAD),timeout=30).read().decode('utf-8','ignore')
 urls=re.findall(r'https://www\.sto\.api\.fdj\.fr/anonymous/service-draw-info/v3/documentations/[^"\\<> ]+',html)
 urls=list(dict.fromkeys(urls))
-# The page order is: current, 2019, 2017, 2008, 1976.
-if len(urls)<4: raise RuntimeError(f'Archives FDJ introuvables: {len(urls)}')
-urls=urls[:4]
+# The page currently exposes five Loto archives, from the current period back to 1976.
+# Keep all five: the parser below ignores pre-2008 rows because the game then used 6 main balls.
+if len(urls)<5: raise RuntimeError(f'Archives FDJ introuvables ou incomplètes: {len(urls)}')
+urls=urls[:5]
 
 def norm(v):
     v=v.strip()
@@ -39,11 +40,14 @@ def parse_csv(text):
     if not rows:return []
     header=[clean_header(x) for x in rows[0]]
     date_i=next((i for i,h in enumerate(header) if h in ('date','datedetirage','datedutirage')),None)
-    ball_i=[i for i,h in enumerate(header) if re.search(r'(boule|numero|numerogagnant|numgagnant)[_ ]?[1-5]$',h)]
-    # Prefer explicit boule_1..boule_5 columns.
-    explicit=[next((i for i,h in enumerate(header) if h in (f'boule{n}',f'numero{n}',f'num{n}')),None) for n in range(1,6)]
-    if all(i is not None for i in explicit): ball_i=explicit
-    chance_i=next((i for i,h in enumerate(header) if 'chance' in h),None)
+    # FDJ has changed column labels over time. Prefer explicit numbered columns,
+    # then fall back to columns whose names clearly end in 1..5.
+    explicit=[]
+    for n in range(1,6):
+        i=next((i for i,h in enumerate(header) if h in (f'boule{n}',f'numero{n}',f'num{n}',f'numero{n}sorti',f'boule{n}sortie')),None)
+        explicit.append(i)
+    ball_i=explicit if all(i is not None for i in explicit) else [i for i,h in enumerate(header) if re.search(r'(boule|numero|numerogagnant|numgagnant).*?[1-5]$',h)]
+    chance_i=next((i for i,h in enumerate(header) if h in ('chance','numerchance','numeroduchance','boulechance') or 'chance' in h),None)
     out=[]
     for row in rows[1:]:
         if date_i is None or date_i>=len(row):continue

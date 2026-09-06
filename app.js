@@ -59,8 +59,10 @@ async function loadData(){
     if(state.draws.length<1000)throw Error(`historique incomplet (${state.draws.length} tirages)`);
     for(const d of state.draws){const k=key(d.numbers);if(!state.byMain.has(k))state.byMain.set(k,[]);state.byMain.get(k).push(d);if(d.chance!=null)state.byFull.set(`${k}|${d.chance}`,d)}
     state.dataReady=true;$('dataStatus').textContent=`${state.draws.length.toLocaleString('fr-FR')} tirages chargés · dernière mise à jour ${data.updatedAt||'—'}.`;
+    $('dataStatus').classList.remove('error-status');
     update();
-  }catch(e){state.dataReady=false;$('dataStatus').textContent='Historique incomplet ou indisponible. Aucune grille ne sera déclarée « unique » tant que les données ne sont pas complètes.';update()}
+  }catch(e){state.dataReady=false;$('dataStatus').textContent=`Historique incomplet ou indisponible (${e.message||'erreur inconnue'}). Lancez le workflow « Update Loto history » pour reconstruire les données depuis les archives officielles FDJ.`;
+    $('dataStatus').classList.add('error-status');update()}
 }
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.deferredPrompt=e;$('installBtn').hidden=false});
 $('installBtn').onclick=async()=>{if(state.deferredPrompt){state.deferredPrompt.prompt();await state.deferredPrompt.userChoice;state.deferredPrompt=null;$('installBtn').hidden=true}else alert('Sur iPhone/iPad : ouvrez le menu Partager de Safari puis « Sur l’écran d’accueil ».')};
