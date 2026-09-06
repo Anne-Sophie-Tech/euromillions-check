@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#101828">
-  <meta name="description" content="Vérifie si une grille LOTO est déjà sortie et génère une grille historique inédite.">
+  <meta name="description" content="Vérifie si une grille LOTO ou EuroMillions est déjà sortie et génère une grille historique inédite.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -26,6 +26,12 @@
     <section class="card picker-card">
       <div class="section-head">
         <div>
+          <label class="game-choice">Jeu
+            <select id="gameSelect">
+              <option value="loto">LOTO</option>
+              <option value="euromillions">EuroMillions</option>
+            </select>
+          </label>
           <h1>Ma grille</h1>
           <p id="modeText">Choisissez 5 numéros.</p>
         </div>
@@ -40,8 +46,8 @@
       </div>
 
       <div class="chance-row">
-        <div><span>Numéro Chance</span><strong id="chanceValue">—</strong></div>
-        <div class="chance-balls" id="chanceBalls"></div>
+        <div><span id="specialLabel">Numéro Chance</span><strong id="specialValue">—</strong></div>
+        <div class="chance-balls" id="specialBalls"></div>
       </div>
 
       <button id="checkBtn" class="primary" disabled>⌕ Vérifier la grille</button>
@@ -58,8 +64,8 @@
 
   <dialog id="infoDialog">
     <div class="dialog-head"><h2>Loto Unique</h2><button id="closeInfo" class="icon-btn" aria-label="Fermer">×</button></div>
-    <p>Vérifiez si vos 5 numéros principaux ont déjà formé exactement la même combinaison dans l'historique disponible.</p>
-    <p>Le numéro Chance est contrôlé séparément. « Unique » signifie uniquement <strong>inédit historiquement</strong> : cela ne donne pas davantage de chances au prochain tirage.</p>
+    <p>Vérifiez si vos 5 numéros principaux ont déjà formé exactement la même combinaison dans l'historique disponible du LOTO ou d'EuroMillions.</p>
+    <p>Le numéro Chance ou les 2 étoiles sont contrôlés séparément. « Unique » signifie uniquement <strong>inédit historiquement</strong> : cela ne donne pas davantage de chances au prochain tirage.</p>
     <p class="muted">La grille Flash est régénérée tant qu'elle correspond à une combinaison déjà connue, lorsque l'historique est disponible.</p>
     <button id="closeInfoBottom" class="primary">Fermer</button>
   </dialog>

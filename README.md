@@ -1,6 +1,6 @@
 # Loto Unique
 
-Application d'aide a la création de grille unique pour le LOTO
+Application d'aide a la création de grille unique pour le LOTO et EuroMillions
 
 ![Screenshot](screenshot.png)
 
@@ -12,9 +12,10 @@ https://flake9025.github.io/loto-check/
 
 ## Fonctionnalités
 
-- sélection manuelle des 5 numéros + Numéro Chance 
+- sélection manuelle des 5 numéros + Numéro Chance pour le LOTO 
+- sélection manuelle des 5 numéros + 2 étoiles pour EuroMillions 
 - Flash qui cherche une combinaison inédite lorsque l'historique est disponible 
-- vérification d'une combinaison dans l'historique 
+- vérification d'une combinaison dans l'historique du jeu sélectionné 
 - indication des dates d'occurrence 
 - bouton « Améliorer pour la rendre unique » qui cherche une grille inédite en modifiant le minimum de numéros 
 - installation sur Android et iOS 
@@ -22,10 +23,10 @@ https://flake9025.github.io/loto-check/
 
 ## Données
 
-`data/history.json` est généré à partir des archives publiques officielles de la FDJ. La FDJ publie les archives LOTO par périodes, dont l'historique depuis 1976. 
+`data/history.json` et `data/euromillions_history.json` sont générés à partir des archives publiques officielles de la FDJ. La FDJ publie les archives LOTO et EuroMillions par périodes. 
 Les périodes antérieures à octobre 2008 ne sont pas utilisées pour le contrôle d'une combinaison actuelle de 5 numéros, car le jeu comportait alors 6 boules principales.
 
-Le workflow GitHub Actions `Update Loto history` met à jour les données quotidiennement et peut être lancé manuellement.
+Les workflows GitHub Actions `Update Loto history` et `Update EuroMillions history` mettent à jour les données quotidiennement et peuvent être lancés manuellement.
 
 L'application refuse de déclarer une grille « unique » si l'historique chargé est absent ou manifestement incomplet.
 
