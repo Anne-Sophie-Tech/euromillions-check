@@ -14,7 +14,7 @@ https://anne-sophie-tech.github.io/euromillions-check/
 
 - sélection manuelle des 5 numéros + Numéro Chance pour le LOTO 
 - sélection manuelle des 5 numéros + 2 étoiles pour EuroMillions 
-- Flash qui cherche une combinaison inédite lorsque l'historique est disponible 
+- Flash attendu qui privilégie les numéros et étoiles avec le plus grand retard de sortie, lorsque l'historique est disponible 
 - vérification d'une combinaison dans l'historique du jeu sélectionné 
 - indication des dates d'occurrence 
 - bouton « Améliorer pour la rendre unique » qui cherche une grille inédite en modifiant le minimum de numéros 

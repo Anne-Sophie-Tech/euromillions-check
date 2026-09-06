@@ -29,10 +29,15 @@ function update(){
 }
 function flash(){
   if(!state.dataReady){showError('Historique indisponible','Le Flash ne peut pas garantir une grille inédite tant que l’historique complet n’est pas chargé.');return}
-  const cfg=game();let candidate;
-  do{candidate=new Set();while(candidate.size<5)candidate.add(1+Math.floor(Math.random()*cfg.mainMax))}while(isMainSeen(candidate));
-  state.main=candidate;state.special=new Set();while(state.special.size<cfg.specialCount)state.special.add(1+Math.floor(Math.random()*cfg.specialMax));renderBalls();check(false);
+  const cfg=game(), rankedMain=rankExpected('numbers',cfg.mainMax), rankedSpecial=rankExpected('special',cfg.specialMax), rank=new Map(rankedMain.map((n,i)=>[n,i]));
+  let candidate=new Set(rankedMain.slice(0,5));
+  for(let i=5;isMainSeen(candidate)&&i<rankedMain.length;i++){
+    const nums=[...candidate].sort((a,b)=>rank.get(a)-rank.get(b));
+    nums[nums.length-1]=rankedMain[i];candidate=new Set(nums);
+  }
+  state.main=candidate;state.special=new Set(rankedSpecial.slice(0,cfg.specialCount));renderBalls();check(false);
 }
+function rankExpected(field,max){const delays=new Map();for(let n=1;n<=max;n++)delays.set(n,state.draws.length);for(let i=0;i<state.draws.length;i++){const values=field==='numbers'?state.draws[i].numbers:getSpecial(state.draws[i]);for(const n of values)if(delays.get(n)===state.draws.length)delays.set(n,i)}return [...delays.entries()].sort((a,b)=>b[1]-a[1]||a[0]-b[0]).map(([n])=>n)}
 function isMainSeen(nums){return state.byMain.has(key(nums))}
 function isFullSeen(nums,special){return state.byFull.has(`${key(nums)}|${key(special)}`)}
 function showError(title,text){const box=$('result');box.hidden=false;box.innerHTML=`<div class="result-box error"><h3>⚠️ ${title}</h3><p>${text}</p></div>`;box.scrollIntoView({behavior:'smooth',block:'nearest'})}
