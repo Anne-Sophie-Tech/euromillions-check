@@ -8,7 +8,7 @@ Application d'aide a la création de grille unique pour le LOTO et EuroMillions
 
 L'application est déployée ici :
 
-https://flake9025.github.io/loto-check/
+https://anne-sophie-tech.github.io/euromillions-check/
 
 ## Fonctionnalités
 
