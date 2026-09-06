@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101828">
+  <meta name="description" content="Vérifie si une grille LOTO est déjà sortie et génère une grille historique inédite.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Loto Unique</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="icons/icon.svg" alt=""><div><strong>Loto Unique</strong><small>Vérifier · Flash · Rendre unique</small></div></div>
+    <button id="installBtn" class="install" hidden>Installer</button>
+  </header>
+
+  <main class="app">
+    <section class="hero">
+      <span class="eyebrow">LOTO®</span>
+      <h1>Votre grille, jamais sortie.</h1>
+      <p>Choisissez vos 5 numéros et votre Chance. L'application compare la grille avec l'historique disponible et peut remplacer le minimum de numéros nécessaire pour obtenir une combinaison inédite.</p>
+    </section>
+
+    <section class="card picker-card">
+      <div class="section-head"><div><h2>Ma grille</h2><p id="modeText">Choisissez 5 numéros.</p></div><button id="flashBtn" class="secondary">⚡ Flash</button></div>
+      <div class="balls" id="mainBalls" aria-label="Numéros Loto"></div>
+      <div class="selection"><div><span>Numéros</span><strong id="mainCount">0 / 5</strong></div><div class="chosen" id="chosenMain">—</div></div>
+      <div class="chance-row"><div><span>Numéro Chance</span><strong id="chanceValue">—</strong></div><div class="chance-balls" id="chanceBalls"></div></div>
+      <button id="checkBtn" class="primary" disabled>Vérifier la grille</button>
+      <button id="uniqueBtn" class="unique" disabled>✨ Améliorer pour la rendre unique</button>
+    </section>
+
+    <section id="result" class="result" hidden></section>
+
+    <section class="info card">
+      <h2>Historique</h2>
+      <p id="dataStatus">Chargement de l'historique…</p>
+      <p class="muted">L'unicité signifie ici que les 5 numéros principaux n'ont jamais formé exactement la même combinaison dans les tirages LOTO modernes disponibles (depuis l'introduction du jeu à 5 numéros). Le numéro Chance est vérifié séparément.</p>
+    </section>
+  </main>
+
+  <footer>Les jeux d'argent comportent des risques. Cette application n'augmente pas les probabilités de gain.</footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
