@@ -28,3 +28,9 @@ La FDJ reste la source officielle des résultats. Le script dépend de la struct
 ## Important sur l'« unicité »
 
 Une combinaison jamais sortie n'a pas une probabilité supérieure au prochain tirage. L'application répond seulement à la question historique : « cette combinaison est-elle déjà apparue ? ».
+
+## Démo
+
+L'application est disponible en ligne :
+
+https://flake9025.github.io/loto-check/
