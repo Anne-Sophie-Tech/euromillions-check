@@ -2,10 +2,16 @@
 
 PWA statique mobile-first, compatible GitHub Pages.
 
+## Démo
+
+L'application est déployée ici :
+
+https://flake9025.github.io/loto-check/
+
 ## Fonctionnalités
 
 - sélection manuelle des 5 numéros + Numéro Chance ;
-- Flash ;
+- Flash qui cherche une combinaison inédite lorsque l'historique est disponible ;
 - vérification d'une combinaison dans l'historique ;
 - indication des dates d'occurrence ;
 - bouton « Améliorer pour la rendre unique » qui cherche une grille inédite en modifiant le minimum de numéros ;
@@ -14,9 +20,11 @@ PWA statique mobile-first, compatible GitHub Pages.
 
 ## Données
 
-`data/history.json` est généré à partir des archives publiques de la FDJ. Le workflow GitHub Actions `Update Loto history` le met à jour quotidiennement et peut être lancé manuellement.
+`data/history.json` est généré à partir des archives publiques officielles de la FDJ. La FDJ publie les archives LOTO par périodes, dont l'historique depuis 1976. Les périodes antérieures à octobre 2008 ne sont pas utilisées pour le contrôle d'une combinaison actuelle de 5 numéros, car le jeu comportait alors 6 boules principales.
 
-La FDJ reste la source officielle des résultats. Le script dépend de la structure de sa page d'archives et doit être contrôlé si celle-ci évolue.
+Le workflow GitHub Actions `Update Loto history` met à jour les données quotidiennement et peut être lancé manuellement.
+
+L'application refuse de déclarer une grille « unique » si l'historique chargé est absent ou manifestement incomplet.
 
 ## GitHub Pages
 
@@ -28,9 +36,3 @@ La FDJ reste la source officielle des résultats. Le script dépend de la struct
 ## Important sur l'« unicité »
 
 Une combinaison jamais sortie n'a pas une probabilité supérieure au prochain tirage. L'application répond seulement à la question historique : « cette combinaison est-elle déjà apparue ? ».
-
-## Démo
-
-L'application est disponible en ligne :
-
-https://flake9025.github.io/loto-check/

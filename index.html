@@ -13,36 +13,57 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="brand"><img src="icons/icon.svg" alt=""><div><strong>Loto Unique</strong><small>Vérifier · Flash · Rendre unique</small></div></div>
-    <button id="installBtn" class="install" hidden>Installer</button>
+    <div class="brand"><img src="icons/icon.svg" alt=""><strong>Loto Unique</strong></div>
+    <div class="top-actions">
+      <button id="infoBtn" class="icon-btn" aria-label="À propos">ⓘ</button>
+      <button id="installBtn" class="install" hidden>Installer</button>
+    </div>
   </header>
 
   <main class="app">
-    <section class="hero">
-      <span class="eyebrow">LOTO®</span>
-      <h1>Votre grille, jamais sortie.</h1>
-      <p>Choisissez vos 5 numéros et votre Chance. L'application compare la grille avec l'historique disponible et peut remplacer le minimum de numéros nécessaire pour obtenir une combinaison inédite.</p>
-    </section>
+    <section id="result" class="result" hidden></section>
 
     <section class="card picker-card">
-      <div class="section-head"><div><h2>Ma grille</h2><p id="modeText">Choisissez 5 numéros.</p></div><button id="flashBtn" class="secondary">⚡ Flash</button></div>
+      <div class="section-head">
+        <div>
+          <h1>Ma grille</h1>
+          <p id="modeText">Choisissez 5 numéros.</p>
+        </div>
+        <button id="flashBtn" class="secondary">⚡ Flash</button>
+      </div>
+
       <div class="balls" id="mainBalls" aria-label="Numéros Loto"></div>
-      <div class="selection"><div><span>Numéros</span><strong id="mainCount">0 / 5</strong></div><div class="chosen" id="chosenMain">—</div></div>
-      <div class="chance-row"><div><span>Numéro Chance</span><strong id="chanceValue">—</strong></div><div class="chance-balls" id="chanceBalls"></div></div>
-      <button id="checkBtn" class="primary" disabled>Vérifier la grille</button>
+
+      <div class="selection">
+        <div><span>Numéros</span><strong id="mainCount">0 / 5</strong></div>
+        <div class="chosen" id="chosenMain">—</div>
+      </div>
+
+      <div class="chance-row">
+        <div><span>Numéro Chance</span><strong id="chanceValue">—</strong></div>
+        <div class="chance-balls" id="chanceBalls"></div>
+      </div>
+
+      <button id="checkBtn" class="primary" disabled>⌕ Vérifier la grille</button>
       <button id="uniqueBtn" class="unique" disabled>✨ Améliorer pour la rendre unique</button>
     </section>
 
-    <section id="result" class="result" hidden></section>
-
     <section class="info card">
-      <h2>Historique</h2>
-      <p id="dataStatus">Chargement de l'historique…</p>
-      <p class="muted">L'unicité signifie ici que les 5 numéros principaux n'ont jamais formé exactement la même combinaison dans les tirages LOTO modernes disponibles (depuis l'introduction du jeu à 5 numéros). Le numéro Chance est vérifié séparément.</p>
+      <h2>État de l'historique</h2>
+      <p id="dataStatus">Chargement…</p>
     </section>
   </main>
 
   <footer>Les jeux d'argent comportent des risques. Cette application n'augmente pas les probabilités de gain.</footer>
+
+  <dialog id="infoDialog">
+    <div class="dialog-head"><h2>Loto Unique</h2><button id="closeInfo" class="icon-btn" aria-label="Fermer">×</button></div>
+    <p>Vérifiez si vos 5 numéros principaux ont déjà formé exactement la même combinaison dans l'historique disponible.</p>
+    <p>Le numéro Chance est contrôlé séparément. « Unique » signifie uniquement <strong>inédit historiquement</strong> : cela ne donne pas davantage de chances au prochain tirage.</p>
+    <p class="muted">La grille Flash est régénérée tant qu'elle correspond à une combinaison déjà connue, lorsque l'historique est disponible.</p>
+    <button id="closeInfoBottom" class="primary">Fermer</button>
+  </dialog>
+
   <script src="app.js" defer></script>
 </body>
 </html>
